@@ -1,0 +1,66 @@
+[
+  {
+    "id": "0",
+    "label": "快捷方式",
+    "type": "root",
+    "path": "/快捷方式",
+    "children": [
+      {
+        "id": "01",
+        "label": "最近编辑",
+        "type": "root-child",
+        "path": "/快捷方式/最近编辑",
+        "childs": []
+      },
+      {
+        "id": "02",
+        "label": "最爱",
+        "type": "root-child",
+        "path": "/快捷方式/最爱",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "1",
+    "label": "项目1",
+    "type": "project",
+    "path": "/项目1",
+    "children": [
+      {
+        "id": "10",
+        "label": "模块1",
+        "type": "project-0",
+        "path": "/项目1/模块1",
+        "children": [
+          {
+            "id": "100",
+            "label": "子模块1",
+            "type": "project-1",
+            "path": "/项目1/模块1/子模块1",
+            "children": [
+              {
+                "id": "1000",
+                "label": "《推背图》",
+                "type": "project-2",
+                "path": "/项目1/模块1/子模块1/《推背图》"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "11",
+        "label": "模块2",
+        "type": "project-0",
+        "path": "/项目1/模块2"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "label": "项目2",
+    "type": "project",
+    "path": "/项目2"
+  }
+]
