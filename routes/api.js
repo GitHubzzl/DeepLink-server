@@ -37,8 +37,24 @@ function guideListData(req, res) {
 }
 function docSubmit(req,res) {
    var json=req.body.form;
-   jsonFile.write(json,ROOT_PATH+'/public/data/doc/1.json');
-   console.log(json);
-    res.json(json);
+   var resultError={
+       code:500,
+       data:{
+
+       },
+       message:"服务器错误"
+   };
+   var result={
+       code:200,
+       data:{},
+       message:"返回成功"
+   };
+   try{
+       jsonFile.write(json,ROOT_PATH+'/public/data/doc/2018022001.json');
+       result.data=json;
+       res.json(result);
+   }catch (err){
+       res.json(resultError);
+   }
 }
 module.exports = router;
