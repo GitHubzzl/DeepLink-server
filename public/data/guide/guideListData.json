@@ -30,19 +30,19 @@
       {
         "id": "10",
         "label": "模块1",
-        "type": "project-0",
+        "type": "module-0",
         "path": "/项目1/模块1",
         "children": [
           {
             "id": "100",
             "label": "子模块1",
-            "type": "project-1",
+            "type": "module-1",
             "path": "/项目1/模块1/子模块1",
             "children": [
               {
                 "id": "1519187825477",
                 "label": "微信「去中心化」电商怎么玩：首先要确立对流量的正确认知",
-                "type": "project-2",
+                "type": "doc",
                 "path": "/项目1/模块1/子模块1/微信「去中心化」电商怎么玩：首先要确立对流量的正确认知"
               }
             ]
@@ -52,7 +52,7 @@
       {
         "id": "11",
         "label": "模块2",
-        "type": "project-0",
+        "type": "project",
         "path": "/项目1/模块2"
       }
     ]
