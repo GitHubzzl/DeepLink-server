@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var api = require('./routes/api');
 var doc = require('./routes/doc');
 var guide = require('./routes/guide');
+var manageCenter = require('./routes/manageCenter');
 var app = express();
 ROOT_PATH=__dirname;
 // view engine setup
@@ -29,6 +30,7 @@ app.use('/users', users);
 app.use('/api',api);
 app.use('/doc',doc);
 app.use('/guide',guide);
+app.use('/manageCenter',manageCenter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
