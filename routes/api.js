@@ -14,6 +14,9 @@ router.get('/', function (req, res) {
         case 'docSubmit':
             docSubmit(req, res);
             break;
+        case 'viewData':
+            viewData(req,res);
+            break;
     }
 });
 router.post('/',function (req,res) {
@@ -34,6 +37,10 @@ function docData(req, res) {
 function guideListData(req, res) {
     var docData = jsonFile.read(ROOT_PATH+'/public/data/guide/guideListData.json');
     res.json(docData)
+}
+function viewData(req, res) {
+    var viewData = jsonFile.read(ROOT_PATH+'/public/data/view/viewData.json');
+    res.json(viewData)
 }
 function docSubmit(req,res) {
    var json=req.body.form;
