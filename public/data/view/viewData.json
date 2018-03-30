@@ -33,7 +33,8 @@
                 "tag":"场景",
                 "path": "/项目1/模块1/子模块1/微信「去中心化」电商怎么玩：首先要确立对流量的正确认知",
                 "modifyDate":"2018-02-25",
-                "description":"介绍1"
+                "description":"介绍1",
+                "children":[]
               }
             ]
           }
@@ -46,7 +47,8 @@
         "tag":"环境",
         "path": "/项目1/模块2",
         "modifyDate":"2018-02-25",
-        "description":"介绍1"
+        "description":"介绍1",
+        "children":[]
       }
     ]
   },
@@ -57,6 +59,7 @@
     "tag":"项目",
     "path": "/项目2",
     "modifyDate":"2018-02-25",
-    "description":"介绍1"
+    "description":"介绍1",
+    "children":[]
   }
 ]
