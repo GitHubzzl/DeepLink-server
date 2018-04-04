@@ -41,6 +41,7 @@ function getViewDataByPath(req, res) {
         page.setList(result);
     }else {
         result=factorical(pathStr,viewData);
+        page.setListDescription(result.description);
         page.setList(result.children);
     }
     page.setTotal(result.length);

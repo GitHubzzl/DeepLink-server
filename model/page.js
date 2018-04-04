@@ -6,6 +6,7 @@ class Page{
         this.pageSize=10;
         this.total=0;
         this.list=[];
+        this.listDescription="";
     }
     getName(){
         return (this.name);
@@ -21,6 +22,9 @@ class Page{
     }
     setList(list){
         this.list=list;
+    }
+    setListDescription(listDescription){
+        this.listDescription=listDescription;
     }
 }
 module.exports=Page;
