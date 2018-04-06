@@ -1,5 +1,5 @@
 var express = require('express');
-var JsonFile = require('../service/jsonFile');
+var JsonFile = require('../service/jsonFileService');
 var router = express.Router();
 var jsonFile=new JsonFile();
 router.get('/getDocData', function (req, res) {
