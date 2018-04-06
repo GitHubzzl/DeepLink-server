@@ -1,9 +1,10 @@
 var express = require('express');
-var JsonFileService = new require('../service/jsonFileService');
-var ProjectService =require('../service/projectService');
+var JsonFileService = require('../service/jsonFileService');
+var ProjectService = require('../service/projectService');
 var Page=require('../model/page');
 var router = express.Router();
 var jsonFile=new JsonFileService();
+var projectService= new ProjectService();
 router.get('/getViewData', function (req, res) {
             viewData(req,res);
 });
@@ -11,9 +12,8 @@ router.post('/getViewDataByPath', function (req, res) {
     getViewDataByPath(req,res);
 });
 router.post('/addProject', function (req, res) {
-    console.log(ProjectService);
-    ProjectService.addProject();
-    res.json({add:1});
+    projectService.addProject(JSON.parse(req.body.info));
+    res.json({message:"添加成功"});
 });
 
 function viewData(req, res) {

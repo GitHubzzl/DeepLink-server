@@ -13,7 +13,8 @@ function jsonFile() {
     };
     var jsonRead = function (filePath,callback) {
         try{
-            return jsonfile.readFileSync(filePath);
+            var json=jsonfile.readFileSync(filePath);
+            return json;
         }catch(err){
             return "";
         }
