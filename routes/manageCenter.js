@@ -15,7 +15,6 @@ router.post('/addProject', function (req, res) {
     projectService.addProject(JSON.parse(req.body.info));
     res.json({message:"添加成功"});
 });
-
 function viewData(req, res) {
     var viewData = jsonFile.read(ROOT_PATH+'/public/data/view/viewData.json');
     res.json(viewData)
@@ -28,7 +27,6 @@ function factorical(pathStr,list){
     if(listItem[0].path!=pathStr){
         return factorical(pathStr,listItem[0].children)
     }else {
-        console.log(listItem);
         return listItem[0];
     }
 }
@@ -42,22 +40,37 @@ function getViewDataByPath(req, res) {
     var page=new Page('listView');
     page.setCurrentPage(pageInfo.currentPage);
     page.setPageSize(pageInfo.pageSize);
+    let order=(pageInfo.order=="ascending")?"ASC":"DESC";
+    let name="";
+    let index=0,size=10;
+    index=pageInfo.currentPage;
+    size=pageInfo.pageSize;
+    switch (pageInfo.sortBy){
+        case "modifyDate" :name="modify_time";break;
+    }
     var result={};
     if(pathStr==""){
-        result=viewData;
-        page.setList(result);
+        result=projectService.getProjectList(name,order,index,size,(result)=>{
+            page.setList(result.list);
+            page.setTotal(result.total);
+            if(result.list.length==0){
+                resultJson.data=page;
+            }else {
+                resultJson.data=page;
+            }
+            res.json(resultJson);
+        });
     }else {
         result=factorical(pathStr,viewData);
         page.setListDescription(result.description);
         page.setList(result.children);
+        page.setTotal(result.length);
+        if(result.length==0){
+            resultJson.data=page;
+        }else {
+            resultJson.data=page;
+        }
+        res.json(resultJson);
     }
-    page.setTotal(result.length);
-
-    if(result.length==0){
-        resultJson.data=page;
-    }else {
-        resultJson.data=page;
-    }
-    res.json(resultJson);
 }
 module.exports = router;

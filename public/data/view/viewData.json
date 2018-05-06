@@ -1,1 +1,101 @@
-[{"id":"1","name":"项目1","type":"project","tag":"项目","path":"/项目1","modifyDate":"2018-02-25","description":"介绍1","children":[{"id":"10","name":"模块1","type":"module-0","tag":"环境","path":"/项目1/模块1","modifyDate":"2018-02-25","description":"介绍1","children":[{"id":"100","name":"子模块1","type":"module-1","tag":"全局环境","path":"/项目1/模块1/子模块1","modifyDate":"2018-02-25","description":"介绍1","children":[{"id":"1519187825477","name":"微信「去中心化」电商怎么玩：首先要确立对流量的正确认知","type":"doc","tag":"场景","path":"/项目1/模块1/子模块1/微信「去中心化」电商怎么玩：首先要确立对流量的正确认知","modifyDate":"2018-02-25","description":"介绍1","children":[]}]}]},{"id":"11","name":"模块2","type":"project-0","tag":"环境","path":"/项目1/模块2","modifyDate":"2018-02-25","description":"介绍1","children":[]}]},{"id":"2","name":"项目2","type":"project","tag":"项目","path":"/项目2","modifyDate":"2018-02-25","description":"介绍1","children":[]},{"name":"11","description":"11","id":"1qaa8nwnmjb400","type":"project","tag":"项目","path":"${projectInfo.projectName}","children":[]},{"name":"1231","description":"1231","id":"4msdimiifvk000","type":"project","tag":"项目","path":"${projectInfo.projectName}","children":[]},{"name":"1231","description":"1231","id":"5odo2g3rmo0000","type":"project","tag":"项目","path":"${projectInfo.projectName}","children":[]},{"name":"6666","description":"1231","id":"4uj34qjg5fg00","type":"project","tag":"项目","path":"${projectInfo.projectName}","children":[]}]
+[
+  {
+    "id": "1",
+    "name": "项目1",
+    "type": "project",
+    "tag": "项目",
+    "path": "/项目1",
+    "modifyDate": "2018-02-25",
+    "description": "介绍1",
+    "children": [
+      {
+        "id": "10",
+        "name": "模块1",
+        "type": "module-0",
+        "tag": "环境",
+        "path": "/项目1/模块1",
+        "modifyDate": "2018-02-25",
+        "description": "介绍1",
+        "children": [
+          {
+            "id": "100",
+            "name": "子模块1",
+            "type": "module-1",
+            "tag": "全局环境",
+            "path": "/项目1/模块1/子模块1",
+            "modifyDate": "2018-02-25",
+            "description": "介绍1",
+            "children": [
+              {
+                "id": "1519187825477",
+                "name": "微信「去中心化」电商怎么玩：首先要确立对流量的正确认知",
+                "type": "doc",
+                "tag": "场景",
+                "path": "/项目1/模块1/子模块1/微信「去中心化」电商怎么玩：首先要确立对流量的正确认知",
+                "modifyDate": "2018-02-25",
+                "description": "介绍1",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "11",
+        "name": "模块2",
+        "type": "project-0",
+        "tag": "环境",
+        "path": "/项目1/模块2",
+        "modifyDate": "2018-02-25",
+        "description": "介绍1",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "项目2",
+    "type": "project",
+    "tag": "项目",
+    "path": "/项目2",
+    "modifyDate": "2018-02-25",
+    "description": "介绍1",
+    "children": []
+  },
+  {
+    "name": "11",
+    "description": "11",
+    "id": "1qaa8nwnmjb400",
+    "type": "project",
+    "tag": "项目",
+    "path": "${projectInfo.projectName}",
+    "children": []
+  },
+  {
+    "name": "1231",
+    "description": "1231",
+    "id": "4msdimiifvk000",
+    "type": "project",
+    "tag": "项目",
+    "path": "${projectInfo.projectName}",
+    "children": []
+  },
+  {
+    "name": "1231",
+    "description": "1231",
+    "id": "5odo2g3rmo0000",
+    "type": "project",
+    "tag": "项目",
+    "path": "${projectInfo.projectName}",
+    "children": []
+  },
+  {
+    "name": "6666",
+    "description": "1231",
+    "id": "4uj34qjg5fg00",
+    "type": "project",
+    "tag": "项目",
+    "path": "${projectInfo.projectName}",
+    "children": []
+  }
+]

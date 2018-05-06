@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mysql = require('mysql');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
@@ -31,7 +31,6 @@ app.use('/api',api);
 app.use('/doc',doc);
 app.use('/guide',guide);
 app.use('/manageCenter',manageCenter);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
