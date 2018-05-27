@@ -10,7 +10,7 @@ class Project {
         this.id = idUtil.genNonDuplicateID(idLength);
         this.type="project";
         this.tag="项目";
-        this.path=`\\${projectInfo.projectName}`;
+        this.path=`/${projectInfo.projectName}`;
         this.createTime=new Date();
         this.modifyTime=new Date();
         this.children=[];
