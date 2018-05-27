@@ -62,12 +62,16 @@ function getViewDataByPath(req, res) {
         });
     }else {
         result=factorical(pathStr,viewData);
-        page.setListDescription(result.description);
-        page.setList(result.children);
-        page.setTotal(result.length);
+
         if(result.length==0){
             resultJson.data=page;
+            page.setListDescription('');
+            page.setList([]);
+            page.setTotal(0);
         }else {
+            page.setListDescription(result.description);
+            page.setList(result.children);
+            page.setTotal(result.length);
             resultJson.data=page;
         }
         res.json(resultJson);
