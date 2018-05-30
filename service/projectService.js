@@ -14,10 +14,15 @@ class ProjectService{
     // 构造
     constructor(){
     }
+
+    /**
+     * 新建项目
+     * @param projectInfo
+     */
     addProject(projectInfo){
         try {
-            var newProject= new Project(projectInfo);
-            var jsonArr=[
+            let newProject= new Project(projectInfo);
+            let jsonArr=[
                 {
                     "id": "10",
                     "name": "模块1",
@@ -84,12 +89,65 @@ class ProjectService{
 
         }
     }
+
+    /**
+     * 修改项目
+     * @param projectInfo
+     */
+    updateProject(projectInfo){
+        try {
+            let modifyTime=new Date();
+            pool.getConnection(function(err, connection) {
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                let query=connection.query(projectSQL.update,[
+                    projectInfo.projectName,
+                    projectInfo.projectDescription,
+                    modifyTime.format('yyyy-MM-dd hh:mm:ss'),
+                    projectInfo.projectId,
+                ], function(err, result) {
+                    console.log(err);
+                    console.log("修改成功");
+                    // 释放连接
+                    connection.release();
+
+                });
+            });
+            // jsonFileService.write(viewData,ROOT_PATH+viewDataPath);
+        }catch (err){
+
+        }
+    }
+    /**
+     * 删除项目
+     * @param projectInfo
+     */
+    deleteProject(projectInfo){
+        try {
+            pool.getConnection(function(err, connection) {
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(projectSQL.delete,[
+                    projectInfo.projectId,
+                ], function(err, result) {
+                    console.log(err);
+                    console.log("删除成功");
+                    // 释放连接
+                    connection.release();
+
+                });
+            });
+            // jsonFileService.write(viewData,ROOT_PATH+viewDataPath);
+        }catch (err){
+
+        }
+    }
     getProjectList(name,order,index,size,callback){
         try {
             pool.getConnection(function(err, connection) {
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
-                var query=connection.query(`SELECT SQL_CALC_FOUND_ROWS * FROM project_list ORDER BY ${name} ${order} LIMIT ${(index-1)*size},${size};SELECT FOUND_ROWS() as total`, function(err, results,fields) {
+                connection.query(`SELECT SQL_CALC_FOUND_ROWS * FROM project_list ORDER BY ${name} ${order} LIMIT ${(index-1)*size},${size};SELECT FOUND_ROWS() as total`, function(err, results,fields) {
                     let list=results[0].map(item =>{
                         let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
                         return {

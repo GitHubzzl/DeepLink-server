@@ -15,6 +15,14 @@ router.post('/addProject', function (req, res) {
     projectService.addProject(JSON.parse(req.body.info));
     res.json({message:"添加成功"});
 });
+router.post('/updateProject', function (req, res) {
+    projectService.updateProject(JSON.parse(req.body.info));
+    res.json({message:"修改成功"});
+});
+router.post('/deleteProject', function (req, res) {
+    projectService.deleteProject(JSON.parse(req.body.info));
+    res.json({message:"删除成功"});
+});
 function viewData(req, res) {
     var viewData = jsonFile.read(ROOT_PATH+'/public/data/view/viewData.json');
     res.json(viewData)
