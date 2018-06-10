@@ -128,7 +128,7 @@ class ProjectService{
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
                 connection.query(projectSQL.delete,[
-                    projectInfo.projectId,
+                    projectInfo.projectId
                 ], function(err, result) {
                     console.log(err);
                     console.log("删除成功");
