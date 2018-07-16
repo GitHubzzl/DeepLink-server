@@ -6,10 +6,10 @@ var projectSQL = require('../db/projectSQL');
 var JsonFileService =  require('./jsonFileService');
 var Project=require('../model/project');
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
-const pool = mysql.createPool( dbConfig.mysql );
+let pool = mysql.createPool( dbConfig.mysql );
 const jsonFileService=new  JsonFileService();
 const dateTimeUtil=new  DateTimeUtil();
-const viewDataPath="/public/data/view/viewData.json";;
+const viewDataPath="/public/data/view/viewData.json";
 class ProjectService{
     // 构造
     constructor(){
@@ -145,6 +145,7 @@ class ProjectService{
     getProjectList(name,order,index,size,callback){
         try {
             pool.getConnection(function(err, connection) {
+                console.log(err)
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
                 connection.query(`SELECT SQL_CALC_FOUND_ROWS * FROM project_list ORDER BY ${name} ${order} LIMIT ${(index-1)*size},${size};SELECT FOUND_ROWS() as total`, function(err, results,fields) {
