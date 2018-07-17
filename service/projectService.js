@@ -1,13 +1,12 @@
 /*项目服务模块*/
-var mysql = require('mysql');
-var DateTimeUtil =require('../utils/dateTimeUtil');
-var dbConfig = require('../db/DBConfig');
-var projectSQL = require('../db/projectSQL');
-var JsonFileService =  require('./jsonFileService');
-var Project=require('../model/project');
+const mysql = require('mysql');
+const DateTimeUtil =require('../utils/dateTimeUtil');
+const dbConfig = require('../db/DBConfig');
+const projectSQL = require('../db/projectSQL');
+const JsonFileService =  require('./jsonFileService');
+const Project=require('../model/project');
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
 let pool = mysql.createPool( dbConfig.mysql );
-const jsonFileService=new  JsonFileService();
 const dateTimeUtil=new  DateTimeUtil();
 const viewDataPath="/public/data/view/viewData.json";
 class ProjectService{

@@ -1,10 +1,10 @@
-var express = require('express');
-var JsonFileService = require('../service/jsonFileService');
-var ProjectService = require('../service/projectService');
-var Page=require('../model/page');
-var router = express.Router();
-var jsonFile=new JsonFileService();
-var projectService= new ProjectService();
+const express = require('express');
+const JsonFileService = new require('../service/jsonFileService');
+const ProjectService = require('../service/projectService');
+const Page=require('../model/page');
+const router = express.Router();
+const jsonFileService=new JsonFileService();
+const projectService= new ProjectService();
 router.get('/getViewData', function (req, res) {
             viewData(req,res);
 });
@@ -24,7 +24,7 @@ router.post('/deleteProject', function (req, res) {
     res.json({message:"删除成功"});
 });
 function viewData(req, res) {
-    var viewData = jsonFile.read(ROOT_PATH+'/public/data/view/viewData.json');
+    var viewData =  jsonFileService.jsonRead(ROOT_PATH+'/public/data/view/viewData.json');
     res.json(viewData)
 }
 function factorical(pathStr,list){
@@ -39,13 +39,13 @@ function factorical(pathStr,list){
     }
 }
 function getViewDataByPath(req, res) {
-    var viewData = jsonFile.read(ROOT_PATH+'/public/data/view/viewData.json');
-    var pathStr=decodeURI(req.body.path);
-    var pageInfo=JSON.parse(decodeURI(req.body.pageInfo));
-    var resultJson={
+    let viewData =  jsonFileService.jsonRead(ROOT_PATH+'/public/data/view/viewData.json');
+    let pathStr=decodeURI(req.body.path);
+    let pageInfo=JSON.parse(decodeURI(req.body.pageInfo));
+    let resultJson={
         data:{}
     };
-    var page=new Page('listView');
+    let page=new Page('listView');
     page.setCurrentPage(pageInfo.currentPage);
     page.setPageSize(pageInfo.pageSize);
     let order=(pageInfo.order=="ascending")?"ASC":"DESC";
@@ -56,7 +56,7 @@ function getViewDataByPath(req, res) {
     switch (pageInfo.sortBy){
         case "modifyDate" :name="modify_time";break;
     }
-    var result={};
+    let result={};
     if(pathStr==""){
         result=projectService.getProjectList(name,order,index,size,(result)=>{
             page.setList(result.list);

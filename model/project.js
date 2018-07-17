@@ -1,4 +1,4 @@
-var IdUtil = require('../utils/idUtil');
+const IdUtil = require('../utils/idUtil');
 const idUtil = new IdUtil();
 const idLength = 8;
 

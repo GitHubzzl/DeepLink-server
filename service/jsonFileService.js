@@ -1,28 +1,27 @@
 /*jsonFile json文件写入读取模块*/
-var fs = require('fs');
-var jsonfile = require('jsonfile');
+const fs = require('fs');
+const jsonfile = require('jsonfile');
+class  JsonFileService {
+    constructor(){
 
-function jsonFile() {
-    var jsonWrite = function (json, filePath) {
-        var file = filePath;
-        var obj = json;
+    }
+
+    jsonWrite(json, filePath){
+        let file = filePath;
+        let obj = json;
         console.log(ROOT_PATH);
         console.log("文件路径");
         console.log(filePath);
         fs.writeFileSync(filePath, JSON.stringify(json));
-    };
-    var jsonRead = function (filePath,callback) {
+    }
+
+    jsonRead(filePath,callback){
         try{
-            var json=jsonfile.readFileSync(filePath);
+            let json=jsonfile.readFileSync(filePath);
             return json;
         }catch(err){
             return "";
         }
-
-    };
-    return {
-        write: jsonWrite,
-        read:jsonRead
-    };
-};
-module.exports = jsonFile;
+    }
+}
+module.exports = JsonFileService;
