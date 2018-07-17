@@ -1,6 +1,7 @@
 const express = require('express');
 const JsonFileService = new require('../service/jsonFileService');
-const ProjectService = require('../service/ProjectService');
+const ProjectService = require('../service/projectService');
+const ModuleService = require('../service/moduleService');
 const Page=require('../model/page');
 const router = express.Router();
 router.post('/getViewDataByPath', function (req, res) {
@@ -49,7 +50,7 @@ function getViewDataByPath(req, res) {
     let result={};
     if(pathStr==""){
         //获取项目列表
-        result=ProjectService.getProjectList(name,order,index,size,(result)=>{
+        ProjectService.getProjectList(name,order,index,size,(result)=>{
             page.setList(result.list);
             page.setTotal(result.total);
             resultJson.data=page;
@@ -57,17 +58,24 @@ function getViewDataByPath(req, res) {
         });
     }else {
         //获取项目详情列表
-        result=factorical(pathStr,viewData);
-        if(result.length==0){
-            page.setListDescription('');
-            page.setList([]);
-        }else {
-            page.setListDescription(result.description);
-            page.setList(result.children);
-        }
-        page.setTotal(result.length);
-        resultJson.data=page;
-        res.json(resultJson);
+        //获取项目列表
+        ModuleService.getModuleListByParentPath(pathStr,name,order,index,size,(result)=>{
+            page.setList(result.list);
+            page.setTotal(result.total);
+            resultJson.data=page;
+            res.json(resultJson);
+        });
+        // result=factorical(pathStr,viewData);
+        // if(result.length==0){
+        //     page.setListDescription('');
+        //     page.setList([]);
+        // }else {
+        //     page.setListDescription(result.description);
+        //     page.setList(result.children);
+        // }
+        // page.setTotal(result.length);
+        // resultJson.data=page;
+        // res.json(resultJson);
     }
 }
 module.exports = router;
