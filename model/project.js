@@ -1,5 +1,4 @@
 const IdUtil = require('../utils/idUtil');
-const idUtil = new IdUtil();
 const idLength = 8;
 
 class Project {
@@ -7,7 +6,7 @@ class Project {
     constructor(projectInfo) {
         this.name = projectInfo.projectName;
         this.description = projectInfo.projectDescription;
-        this.id = idUtil.genNonDuplicateID(idLength);
+        this.id = IdUtil.genNonDuplicateID(idLength);
         this.type="project";
         this.tag="项目";
         this.path=`/${projectInfo.projectName}`;

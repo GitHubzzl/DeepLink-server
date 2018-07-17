@@ -18,7 +18,7 @@ class ProjectService{
      * 新建项目
      * @param projectInfo
      */
-    addProject(projectInfo){
+    static addProject(projectInfo){
         try {
             let newProject= new Project(projectInfo);
             let jsonArr=[
@@ -93,7 +93,7 @@ class ProjectService{
      * 修改项目
      * @param projectInfo
      */
-    updateProject(projectInfo){
+    static updateProject(projectInfo){
         try {
             let modifyTime=new Date();
             pool.getConnection(function(err, connection) {
@@ -121,7 +121,7 @@ class ProjectService{
      * 删除项目
      * @param projectInfo
      */
-    deleteProject(projectInfo){
+    static deleteProject(projectInfo){
         try {
             pool.getConnection(function(err, connection) {
                 // 获取前台页面传过来的参数
@@ -141,7 +141,7 @@ class ProjectService{
 
         }
     }
-    getProjectList(name,order,index,size,callback){
+    static getProjectList(name,order,index,size,callback){
         try {
             pool.getConnection(function(err, connection) {
                 console.log(err)

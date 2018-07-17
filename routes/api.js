@@ -1,7 +1,6 @@
 const express = require('express');
 const JsonFileService = require('../service/jsonFileService');
 const router = express.Router();
-const jsonFileService=new JsonFileService();
 router.get('/', function (req, res) {
     let query = req.query;
     switch (query.method) {
@@ -30,16 +29,16 @@ router.post('/',function (req,res) {
 function docData(req, res) {
     let query=req.query;
     let docId=query.docId?query.docId:"";
-    let docData = jsonFile.read(ROOT_PATH+'/public/data/doc/'+docId+'.json');
+    let docData = JsonFileService.jsonRead(ROOT_PATH+'/public/data/doc/'+docId+'.json');
     res.json(docData);
 }
 
 function guideListData(req, res) {
-    let docData = jsonFileService.jsonRead(ROOT_PATH+'/public/data/guide/guideListData.json');
+    let docData = JsonFileService.jsonRead(ROOT_PATH+'/public/data/guide/guideListData.json');
     res.json(docData)
 }
 function viewData(req, res) {
-    let viewData = jsonFileService.jsonRead(ROOT_PATH+'/public/data/view/viewData.json');
+    let viewData = JsonFileService.jsonRead(ROOT_PATH+'/public/data/view/viewData.json');
     res.json(viewData)
 }
 function docSubmit(req,res) {
@@ -57,7 +56,7 @@ function docSubmit(req,res) {
        message:"返回成功"
    };
    try{
-       jsonFileService.jsonWrite(json,ROOT_PATH+'/public/data/doc/2018022001.json');
+       JsonFileService.jsonWrite(json,ROOT_PATH+'/public/data/doc/2018022001.json');
        result.data=json;
        res.json(result);
    }catch (err){

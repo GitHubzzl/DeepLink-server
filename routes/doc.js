@@ -1,7 +1,6 @@
 const express = require('express');
-const JsonFileService = new require('../service/jsonFileService');
+const JsonFileService =  require('../service/jsonFileService');
 const router = express.Router();
-const jsonFileService=new JsonFileService();
 // const jsonFile=new JsonFile();
 router.get('/getDocData', function (req, res) {
      docData(req, res);
@@ -12,7 +11,7 @@ router.post('/docSubmit', function (req, res) {
 function docData(req, res) {
     let query=req.query;
     let docId=query.docId?query.docId:"";
-    let docData =  jsonFileService.jsonRead(ROOT_PATH+'/public/data/doc/'+docId+'.json');
+    let docData =  JsonFileService.jsonRead(ROOT_PATH+'/public/data/doc/'+docId+'.json');
     res.json(docData);
 }
 function docSubmit(req,res) {
@@ -30,7 +29,7 @@ function docSubmit(req,res) {
        message:"返回成功"
    };
    try{
-       jsonFileService.jsonWrite(json,ROOT_PATH+'/public/data/doc/2018022001.json');
+       JsonFileService.jsonWrite(json,ROOT_PATH+'/public/data/doc/2018022001.json');
        result.data=json;
        res.json(result);
    }catch (err){
