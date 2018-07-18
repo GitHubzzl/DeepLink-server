@@ -1,5 +1,6 @@
 const express = require('express');
 const JsonFileService = require('../service/jsonFileService');
+const ModuleService = require('../service/moduleService');
 const router = express.Router();
 router.get('/', function (req, res) {
     let query = req.query;
@@ -25,6 +26,9 @@ router.post('/',function (req,res) {
             docSubmit(req, res);
             break;
     }
+});
+router.get('/getModuleTypeDic', function (req, res) {
+    ModuleService.getModuleTypeDic(res);
 });
 function docData(req, res) {
     let query=req.query;
