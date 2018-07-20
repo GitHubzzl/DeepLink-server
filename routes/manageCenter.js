@@ -7,19 +7,26 @@ const router = express.Router();
 router.post('/getViewDataByPath', function (req, res) {
     getViewDataByPath(req,res);
 });
+//添加项目
 router.post('/addProject', function (req, res) {
     ProjectService.addProject(JSON.parse(req.body.info));
     res.json({message:"添加成功"});
 });
+//修改项目
 router.post('/updateProject', function (req, res) {
     ProjectService.updateProject(JSON.parse(req.body.info));
     res.json({message:"修改成功"});
 });
+//删除项目
 router.post('/deleteProject', function (req, res) {
     ProjectService.deleteProject(JSON.parse(req.body.info));
     res.json({message:"删除成功"});
 });
-
+//添加模块
+router.post('/addModule', function (req, res) {
+    ModuleService.addModule(JSON.parse(req.body.info));
+    res.json({message: "添加成功"});
+});
 function factorical(pathStr,list){
     let listItem=list.filter(item => pathStr.indexOf(item.path)>-1);
     if(listItem.length==0){

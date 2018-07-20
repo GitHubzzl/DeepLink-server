@@ -144,10 +144,9 @@ class ProjectService{
     static getProjectList(name,order,index,size,callback){
         try {
             pool.getConnection(function(err, connection) {
-                console.log(err)
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
-                connection.query(`SELECT SQL_CALC_FOUND_ROWS * FROM project_list ORDER BY ${name} ${order} LIMIT ${(index-1)*size},${size};SELECT FOUND_ROWS() as total`, function(err, results,fields) {
+                connection.query(projectSQL.getProjectList,[name,order,(index-1)*size,size], function(err, results,fields) {
                     let list=results[0].map(item =>{
                         let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
                         return {

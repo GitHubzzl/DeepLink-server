@@ -7,6 +7,7 @@ const moduleSQL = require('../db/moduleSQL');
 let pool = mysql.createPool( dbConfig.mysql );
 const dateTimeUtil=new  DateTimeUtil();
 const viewDataPath="/public/data/view/viewData.json";
+const Module=require('../model/module');
 class ModuleService{
     // 构造
     constructor(){
@@ -26,7 +27,7 @@ class ModuleService{
                 console.log(err)
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
-                connection.query(`SELECT SQL_CALC_FOUND_ROWS * FROM module_list WHERE parent_path='${parentPath}' ORDER BY ${name} ${order} LIMIT ${(index-1)*size},${size};SELECT FOUND_ROWS() as total`, function(err, results,fields) {
+                    connection.query(moduleSQL.getModuleListByParentPath,[parentPath,name,order,(index-1)*size,size], function(err, results,fields) {
                     let list=results[0].map(item =>{
                         let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
                         return {
@@ -50,6 +51,36 @@ class ModuleService{
                 });
             });
         }catch (err){
+        }
+    }
+    /**
+     * 新建模块
+     * @param moduleInfo
+     */
+    static addModule(moduleInfo){
+        try {
+            let newModule= new Module(ModuleInfo);
+            // pool.getConnection(function(err, connection) {
+            //     // 获取前台页面传过来的参数
+            //     // 建立连接 增加一个用户信息
+            //     connection.query(projectSQL.insert,[
+            //         newProject.id,
+            //         newProject.name,
+            //         newProject.description,
+            //         newProject.createTime,
+            //         newProject.modifyTime,
+            //         newProject.path,
+            //         JSON.stringify(jsonArr),
+            //     ], function(err, result) {
+            //         console.log("添加成功");
+            //         // 释放连接
+            //         connection.release();
+            //
+            //     });
+            // });
+            // jsonFileService.write(viewData,ROOT_PATH+viewDataPath);
+        }catch (err){
+
         }
     }
     /**
