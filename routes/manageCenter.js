@@ -27,6 +27,16 @@ router.post('/addModule', function (req, res) {
     ModuleService.addModule(JSON.parse(req.body.info));
     res.json({message: "添加成功"});
 });
+//根据路径获取模块信息
+router.post('/getInfoByPath', function (req, res) {
+    let path=req.body.path?req.body.path:"";
+    let length=path.split('/').length;
+    if(length==2){
+        ProjectService.getProjectInfoByPath(req.body.path,res);
+    }else {
+        ModuleService.getModuleInfoByPath(req.body.path,res);
+    }
+});
 function factorical(pathStr,list){
     let listItem=list.filter(item => pathStr.indexOf(item.path)>-1);
     if(listItem.length==0){

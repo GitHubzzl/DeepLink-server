@@ -172,5 +172,33 @@ class ProjectService{
         }catch (err){
         }
     }
+    static getProjectInfoByPath(path,res){
+        try {
+            pool.getConnection(function(err, connection) {
+                console.log(err)
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(projectSQL.getProjectInfoByPath,[path], function(err, results,fields) {
+                    let list=results.map(item =>{
+                        let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
+                        return {
+                            name:item.project_name,
+                            description :item.project_description,
+                            id:item.project_id,
+                            type:"project",
+                            tag:"项目",
+                            path:item.path,
+                            modifyDate:modifyDate,
+                            children:JSON.parse(item.children)
+                        }
+                    })[0];
+                    // 释放连接
+                    connection.release();
+                    res.json({message:"success",data:list});
+                });
+            });
+        }catch (err){
+        }
+    }
 }
 module.exports=ProjectService;

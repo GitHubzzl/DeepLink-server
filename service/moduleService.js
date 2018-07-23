@@ -60,6 +60,7 @@ class ModuleService{
     static addModule(moduleInfo){
         try {
             let newModule= new Module(ModuleInfo);
+            console.log("ok");
             // pool.getConnection(function(err, connection) {
             //     // 获取前台页面传过来的参数
             //     // 建立连接 增加一个用户信息
@@ -107,6 +108,25 @@ class ModuleService{
         }catch (err){
         }
 
+    }
+    /**
+     * 根据路径获取模块详情
+     */
+    static getModuleInfoByPath(path,res){
+        try {
+            pool.getConnection(function(err, connection) {
+                console.log(err)
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(moduleSQL.getModuleInfoByPath,[path], function(err, results,fields) {
+                    let list=results;
+                    // 释放连接
+                    connection.release();
+                    res.json({message:"success",data:list});
+                });
+            });
+        }catch (err){
+        }
     }
 }
 module.exports=ModuleService;
