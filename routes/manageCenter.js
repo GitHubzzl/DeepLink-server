@@ -24,8 +24,21 @@ router.post('/deleteProject', function (req, res) {
 });
 //添加模块
 router.post('/addModule', function (req, res) {
-    ModuleService.addModule(JSON.parse(req.body.info));
-    res.json({message: "添加成功"});
+    ModuleService.addModule(JSON.parse(req.body.info),()=>{
+        res.json({message: "添加成功"});
+    });
+});
+//修改模块
+router.post('/updateModule', function (req, res) {
+    ModuleService.updateModule(JSON.parse(req.body.info),()=>{
+        res.json({message: "修改成功"});
+    });
+});
+//删除模块
+router.post('/deleteModule', function (req, res) {
+    ModuleService.deleteModule(JSON.parse(req.body.info),()=>{
+        res.json({message: "修改成功"});
+    });
 });
 //根据路径获取模块信息
 router.post('/getInfoByPath', function (req, res) {

@@ -34,11 +34,12 @@ class ModuleService{
                             name:item.module_name,
                             description :item.module_description,
                             id:item.module_id,
-                            type:"module",
+                            type:item.module_type,
+                            typeId:item.module_type_id,
                             tag:item.tag?item.tag:'',
                             path:item.path,
                             modifyDate:modifyDate,
-                            children:JSON.parse(item.children)
+                            children:item.children
                         }
                     });
                     let total=results[1][0].total;
@@ -57,28 +58,86 @@ class ModuleService{
      * 新建模块
      * @param moduleInfo
      */
-    static addModule(moduleInfo){
+    static addModule(moduleInfo,callback){
         try {
-            let newModule= new Module(ModuleInfo);
+            let newModule= new Module(moduleInfo);
             console.log("ok");
-            // pool.getConnection(function(err, connection) {
-            //     // 获取前台页面传过来的参数
-            //     // 建立连接 增加一个用户信息
-            //     connection.query(projectSQL.insert,[
-            //         newProject.id,
-            //         newProject.name,
-            //         newProject.description,
-            //         newProject.createTime,
-            //         newProject.modifyTime,
-            //         newProject.path,
-            //         JSON.stringify(jsonArr),
-            //     ], function(err, result) {
-            //         console.log("添加成功");
-            //         // 释放连接
-            //         connection.release();
-            //
-            //     });
-            // });
+            pool.getConnection(function(err, connection) {
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(moduleSQL.insert,[
+                    newModule.id,
+                    newModule.name,
+                    newModule.description,
+                    newModule.typeId,
+                    newModule.tag,
+                    newModule.createTime,
+                    newModule.modifyTime,
+                    newModule.path,
+                    newModule.parentPath,
+                    newModule.parentId,
+                    newModule.parentName,
+                    newModule.parentTypeId,
+                    '',
+                ], (err, result) =>{
+                    console.log("添加成功");
+                    // 释放连接
+                    connection.release();
+                    callback()
+                });
+            });
+        }catch (err){
+
+        }
+    }
+    /**
+     * 修改模块
+     * @param moduleInfo
+     */
+    static updateModule(moduleInfo,callback){
+        try {
+            let modifyTime=new Date();
+            pool.getConnection(function(err, connection) {
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                let query=connection.query(moduleSQL.update,[
+                    moduleInfo.moduleName,
+                    moduleInfo.moduleDescription,
+                    moduleInfo.moduleTypeId,
+                    modifyTime.format('yyyy-MM-dd hh:mm:ss'),
+                    moduleInfo.moduleId,
+                ], function(err, result) {
+                    console.log(err);
+                    console.log("修改成功");
+                    // 释放连接
+                    connection.release();
+                    callback()
+                });
+            });
+            // jsonFileService.write(viewData,ROOT_PATH+viewDataPath);
+        }catch (err){
+
+        }
+    }
+    /**
+     * 删除模块
+     * @param moduleInfo
+     */
+    static deleteModule(moduleInfo,callback){
+        try {
+            pool.getConnection(function(err, connection) {
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(moduleSQL.delete,[
+                    moduleInfo.moduleId
+                ], function(err, result) {
+                    console.log(err);
+                    console.log("删除成功");
+                    // 释放连接
+                    connection.release();
+                    callback()
+                });
+            });
             // jsonFileService.write(viewData,ROOT_PATH+viewDataPath);
         }catch (err){
 
@@ -119,7 +178,24 @@ class ModuleService{
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
                 connection.query(moduleSQL.getModuleInfoByPath,[path], function(err, results,fields) {
-                    let list=results;
+                    let list=results.map(item =>{
+                        let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
+                        return {
+                            name:item.module_name,
+                            description :item.module_description,
+                            id:item.module_id,
+                            type:item.module_type_name,
+                            typeId:item.module_type_id,
+                            tag:"模块",
+                            path:item.path,
+                            parentId:item.parent_id,
+                            parentName:item.parent_name,
+                            parentType:item.parent_type_name,
+                            parentTypeId:item.parent_type_id,
+                            modifyDate:modifyDate,
+                            children:JSON.parse(item.children)
+                        }
+                    })[0];
                     // 释放连接
                     connection.release();
                     res.json({message:"success",data:list});

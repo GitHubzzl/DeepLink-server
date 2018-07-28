@@ -186,6 +186,7 @@ class ProjectService{
                             description :item.project_description,
                             id:item.project_id,
                             type:"project",
+                            typeId:'0',
                             tag:"项目",
                             path:item.path,
                             modifyDate:modifyDate,
