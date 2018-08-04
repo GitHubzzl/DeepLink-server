@@ -4,8 +4,8 @@ const ProjectService = require('../service/projectService');
 const ModuleService = require('../service/moduleService');
 const Page=require('../model/page');
 const router = express.Router();
-router.post('/getViewDataByPath', function (req, res) {
-    getViewDataByPath(req,res);
+router.post('/getViewDataByPathId', function (req, res) {
+    getViewDataByPathId(req,res);
 });
 //添加项目
 router.post('/addProject', function (req, res) {
@@ -50,6 +50,16 @@ router.post('/getInfoByPath', function (req, res) {
         ModuleService.getModuleInfoByPath(req.body.path,res);
     }
 });
+//根据路径Id获取模块信息
+router.post('/getInfoByPathId', function (req, res) {
+    let path=req.body.pathId || "";
+    let length=path.split('/').length;
+    if(length==2){
+        ProjectService.getProjectInfoByPathId(req.body.pathId,res);
+    }else {
+        ModuleService.getModuleInfoByPath(req.body.path,res);
+    }
+});
 function factorical(pathStr,list){
     let listItem=list.filter(item => pathStr.indexOf(item.path)>-1);
     if(listItem.length==0){
@@ -61,8 +71,8 @@ function factorical(pathStr,list){
         return listItem[0];
     }
 }
-function getViewDataByPath(req, res) {
-    let viewData =  JsonFileService.jsonRead(ROOT_PATH+'/public/data/view/viewData.json'), pathStr=decodeURI(req.body.path),
+function getViewDataByPathId(req, res) {
+    let pathId=req.body.pathId,
         pageInfo=JSON.parse(decodeURI(req.body.pageInfo)),
         resultJson={
             data:{}
@@ -78,7 +88,7 @@ function getViewDataByPath(req, res) {
         case "modifyDate" :name="modify_time";break;
     }
     let result={};
-    if(pathStr==""){
+    if(pathId==""){
         //获取项目列表
         ProjectService.getProjectList(name,order,index,size,(result)=>{
             page.setList(result.list);
@@ -89,7 +99,7 @@ function getViewDataByPath(req, res) {
     }else {
         //获取项目详情列表
         //获取项目列表
-        ModuleService.getModuleListByParentPath(pathStr,name,order,index,size,(result)=>{
+        ModuleService.getModuleListByParentPathId(pathId,name,order,index,size,(result)=>{
             page.setList(result.list);
             page.setTotal(result.total);
             resultJson.data=page;

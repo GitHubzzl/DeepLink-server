@@ -14,20 +14,20 @@ class ModuleService{
     }
     /**
      * 根据父节点路径查找模块
-     * @param parentPath 父节点路径
+     * @param parentPathId 父节点路径id
      * @param name 排序字段名称
      * @param order 排序顺训
      * @param index 当前页码
      * @param size 每页数据数
      * @param callback 回调函数
      */
-    static getModuleListByParentPath(parentPath,name,order,index,size,callback){
+    static getModuleListByParentPathId(parentPathId,name,order,index,size,callback){
         try {
             pool.getConnection(function(err, connection) {
                 console.log(err)
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
-                    connection.query(moduleSQL.getModuleListByParentPath,[parentPath,name,order,(index-1)*size,size], function(err, results,fields) {
+                    connection.query(moduleSQL.getModuleListByParentPathId,[parentPathId,name,order,(index-1)*size,size], function(err, results,fields) {
                     let list=results[0].map(item =>{
                         let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
                         return {
@@ -38,6 +38,13 @@ class ModuleService{
                             typeId:item.module_type_id,
                             tag:item.tag?item.tag:'',
                             path:item.path,
+                            pathId:item.path_id,
+                            parentId:item.parent_id,
+                            parentName:item.parent_name,
+                            parentType:item.parent_type_name,
+                            parentTypeId:item.parent_type_id,
+                            parentPath:item.parent_path,
+                            parentPathId:item.parent_path_id,
                             modifyDate:modifyDate,
                             children:item.children
                         }
@@ -74,7 +81,9 @@ class ModuleService{
                     newModule.createTime,
                     newModule.modifyTime,
                     newModule.path,
+                    newModule.pathId,
                     newModule.parentPath,
+                    newModule.parentPathId,
                     newModule.parentId,
                     newModule.parentName,
                     newModule.parentTypeId,
@@ -188,12 +197,54 @@ class ModuleService{
                             typeId:item.module_type_id,
                             tag:"模块",
                             path:item.path,
+                            pathId:item.pathId,
                             parentId:item.parent_id,
                             parentName:item.parent_name,
                             parentType:item.parent_type_name,
                             parentTypeId:item.parent_type_id,
+                            parentPath:item.parent_path,
+                            parentPathId:item.parent_path_id,
                             modifyDate:modifyDate,
-                            children:JSON.parse(item.children)
+                            children:item.children?JSON.parse(item.children):[]
+                        }
+                    })[0];
+                    // 释放连接
+                    connection.release();
+                    res.json({message:"success",data:list});
+                });
+            });
+        }catch (err){
+        }
+    }
+    /**
+     * 根据路径is获取模块详情
+     */
+    static getModuleInfoByPathId(pathId,res){
+        try {
+            pool.getConnection(function(err, connection) {
+                console.log(err)
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(moduleSQL.getModuleInfoByPathId,[pathId], function(err, results,fields) {
+                    let list=results.map(item =>{
+                        let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
+                        return {
+                            name:item.module_name,
+                            description :item.module_description,
+                            id:item.module_id,
+                            type:item.module_type_name,
+                            typeId:item.module_type_id,
+                            tag:"模块",
+                            path:item.path,
+                            pathId:item.pathId,
+                            parentId:item.parent_id,
+                            parentName:item.parent_name,
+                            parentType:item.parent_type_name,
+                            parentTypeId:item.parent_type_id,
+                            parentPath:item.parent_path,
+                            parentPathId:item.parent_path_id,
+                            modifyDate:modifyDate,
+                            children:item.children?JSON.parse(item.children):[]
                         }
                     })[0];
                     // 释放连接

@@ -75,6 +75,7 @@ class ProjectService{
                     newProject.createTime,
                     newProject.modifyTime,
                     newProject.path,
+                    newProject.pathId,
                     JSON.stringify(jsonArr),
                 ], function(err, result) {
                     console.log("添加成功");
@@ -156,6 +157,7 @@ class ProjectService{
                             type:"project",
                             tag:"项目",
                             path:item.path,
+                            pathId:item.path_id,
                             modifyDate:modifyDate,
                             children:JSON.parse(item.children)
                         }
@@ -189,6 +191,41 @@ class ProjectService{
                             typeId:'0',
                             tag:"项目",
                             path:item.path,
+                            pathId:item.path_id,
+                            modifyDate:modifyDate,
+                            children:JSON.parse(item.children)
+                        }
+                    })[0];
+                    // 释放连接
+                    connection.release();
+                    res.json({message:"success",data:list});
+                });
+            });
+        }catch (err){
+        }
+    }
+    /**
+     * 根据路径id获取项目信息
+     * @param projectInfo
+     */
+    static getProjectInfoByPathId(pathId,res){
+        try {
+            pool.getConnection(function(err, connection) {
+                console.log(err)
+                // 获取前台页面传过来的参数
+                // 建立连接 增加一个用户信息
+                connection.query(projectSQL.getProjectInfoByPathId,[pathId], function(err, results,fields) {
+                    let list=results.map(item =>{
+                        let modifyDate=item.modify_time?new Date(item.modify_time).format("yyyy-MM-dd"):"";
+                        return {
+                            name:item.project_name,
+                            description :item.project_description,
+                            id:item.project_id,
+                            type:"project",
+                            typeId:'0',
+                            tag:"项目",
+                            path:item.path,
+                            pathId:item.path_id,
                             modifyDate:modifyDate,
                             children:JSON.parse(item.children)
                         }
