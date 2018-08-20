@@ -96,7 +96,7 @@ class ModuleService{
                 });
             });
         }catch (err){
-
+            console.log(err)
         }
     }
     /**
@@ -197,7 +197,7 @@ class ModuleService{
                             typeId:item.module_type_id,
                             tag:"模块",
                             path:item.path,
-                            pathId:item.pathId,
+                            pathId:item.path_id,
                             parentId:item.parent_id,
                             parentName:item.parent_name,
                             parentType:item.parent_type_name,
