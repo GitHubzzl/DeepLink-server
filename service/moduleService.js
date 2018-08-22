@@ -134,12 +134,11 @@ class ModuleService{
      */
     static deleteModule(moduleInfo,callback){
         try {
+            let sql = moduleSQL.mutiDelFun(moduleInfo.moduleId)
             pool.getConnection(function(err, connection) {
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
-                connection.query(moduleSQL.delete,[
-                    moduleInfo.moduleId
-                ], function(err, result) {
+                connection.query(sql, function(err, result) {
                     console.log(err);
                     console.log("删除成功");
                     // 释放连接
@@ -149,7 +148,7 @@ class ModuleService{
             });
             // jsonFileService.write(viewData,ROOT_PATH+viewDataPath);
         }catch (err){
-
+            console.log(err)
         }
     }
     /**
