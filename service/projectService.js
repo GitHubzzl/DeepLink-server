@@ -127,9 +127,8 @@ class ProjectService{
             pool.getConnection(function(err, connection) {
                 // 获取前台页面传过来的参数
                 // 建立连接 增加一个用户信息
-                connection.query(projectSQL.delete,[
-                    projectInfo.projectId
-                ], function(err, result) {
+                let sql = projectSQL.mutiDelFun(projectInfo.projectId)
+                connection.query(sql, function(err, result) {
                     console.log(err);
                     console.log("删除成功");
                     // 释放连接
