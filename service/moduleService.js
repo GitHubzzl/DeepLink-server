@@ -109,17 +109,11 @@ class ModuleService {
    */
   static updateModule(moduleInfo, callback) {
     try {
-      let modifyTime = new Date();
+      let sql = moduleSQL.updateModuleSQL(moduleInfo.oldModuleName, moduleInfo.moduleName, moduleInfo.moduleDescription,moduleInfo.moduleTypeId, moduleInfo.moduleId,)
       pool.getConnection(function (err, connection) {
         // 获取前台页面传过来的参数
         // 建立连接 增加一个用户信息
-        let query = connection.query(moduleSQL.update, [
-          moduleInfo.moduleName,
-          moduleInfo.moduleDescription,
-          moduleInfo.moduleTypeId,
-          modifyTime.format('yyyy-MM-dd hh:mm:ss'),
-          moduleInfo.moduleId,
-        ], function (err, result) {
+        let query = connection.query(sql, function (err, result) {
           console.log(err);
           console.log("修改成功");
           // 释放连接

@@ -101,12 +101,8 @@ class ProjectService {
       pool.getConnection(function (err, connection) {
         // 获取前台页面传过来的参数
         // 建立连接 增加一个用户信息
-        let query = connection.query(projectSQL.update, [
-          projectInfo.projectName,
-          projectInfo.projectDescription,
-          modifyTime.format('yyyy-MM-dd hh:mm:ss'),
-          projectInfo.projectId,
-        ], function (err, result) {
+        let sql = projectSQL.updateProject( projectInfo.oldProjectName, projectInfo.projectName, projectInfo.projectDescription, `/${projectInfo.projectName}`, projectInfo.projectId)
+        let query = connection.query(sql, function (err, result) {
           console.log(err);
           console.log("修改成功");
           // 释放连接
