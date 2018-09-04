@@ -57,7 +57,7 @@ router.post('/getInfoByPathId', function (req, res) {
   if (length == 2) {
     ProjectService.getProjectInfoByPathId(req.body.pathId, res);
   } else {
-    ModuleService.getModuleInfoByPath(req.body.path, res);
+    ModuleService.getModuleInfoByPathId(req.body.pathId, res);
   }
 });
 
