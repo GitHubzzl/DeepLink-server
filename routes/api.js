@@ -1,6 +1,7 @@
 const express = require('express');
 const JsonFileService = require('../service/jsonFileService');
 const ModuleService = require('../service/moduleService');
+const ElementService = require('../service/elementService')
 const router = express.Router();
 router.get('/', function (req, res) {
   let query = req.query;
@@ -27,10 +28,14 @@ router.post('/', function (req, res) {
       break;
   }
 });
-router.get('/getModuleTypeDic', function (req, res) {
-  ModuleService.getModuleTypeDic(res);
+//获取模块类别列表
+router.get('/getFolderTypeDic', function (req, res) {
+  ModuleService.getFolderTypeDic(res);
 });
-
+//获取元素类别列表
+router.get('/getElementTypeDic', function (req, res) {
+  ElementService.getElementTypeDic(res);
+});
 function docData(req, res) {
   let query = req.query;
   let docId = query.docId ? query.docId : "";

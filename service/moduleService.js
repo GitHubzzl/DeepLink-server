@@ -80,6 +80,7 @@ class ModuleService {
           newModule.name,
           newModule.description,
           newModule.typeId,
+          newModule.moduleType,
           newModule.tag,
           newModule.createTime,
           newModule.modifyTime,
@@ -154,17 +155,17 @@ class ModuleService {
   /**
    * 获取模块类别列表
    */
-  static getModuleTypeDic(res) {
+  static getFolderTypeDic(res) {
     try {
       pool.getConnection(function (err, connection) {
         console.log(err)
         // 获取前台页面传过来的参数
         // 建立连接 增加一个用户信息
-        connection.query(moduleSQL.getModuleTypeDic, function (err, results, fields) {
+        connection.query(moduleSQL.getFolderTypeDic, function (err, results, fields) {
           let list = results.map(item => {
             return {
-              label: item.module_type_name,
-              value: item.module_type_id
+              label: item.folder_type_name,
+              value: item.folder_type_id
             }
           });
           // 释放连接

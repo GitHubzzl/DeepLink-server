@@ -9,6 +9,7 @@ class Module {
     this.description = moduleInfo.moduleDescription;
     this.id = id;
     this.typeId = moduleInfo.moduleTypeId;
+    this.moduleType =  moduleInfo.moduleType;
     // this.typeName=moduleInfo.typeName;
     this.tag = "项目";
     this.parentId = moduleInfo.parentId;
