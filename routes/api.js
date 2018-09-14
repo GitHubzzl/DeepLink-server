@@ -1,7 +1,8 @@
 const express = require('express');
+const QrCodeUtils = require('../utils/qrCodeUtil');
 const JsonFileService = require('../service/jsonFileService');
 const ModuleService = require('../service/moduleService');
-const ElementService = require('../service/elementService')
+const ElementService = require('../service/elementService');
 const router = express.Router();
 router.get('/', function (req, res) {
   let query = req.query;
@@ -35,6 +36,12 @@ router.get('/getFolderTypeDic', function (req, res) {
 //获取元素类别列表
 router.get('/getElementTypeDic', function (req, res) {
   ElementService.getElementTypeDic(res);
+});
+router.post('/getQrCodeImageFromUrl', function (req, res) {
+    let json ={
+        data:QrCodeUtils.getQrCodeImageFromUrl(`${req.body.query}`)
+    };
+    res.json(json);
 });
 function docData(req, res) {
   let query = req.query;
